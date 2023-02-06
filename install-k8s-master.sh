@@ -62,6 +62,4 @@ apiVersion: kubeadm.k8s.io/v1beta2
  networking:
   podSubnet: "10.244.0.0/16"
 
-export PATH=$PATH:$DOWNLOAD_DIR
-
 EOF
