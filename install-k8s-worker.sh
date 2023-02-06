@@ -70,4 +70,5 @@ kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.9.4/install
 
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
+export HELM_INSTALL_DIR=/opt/bin
 ./get_helm.sh
