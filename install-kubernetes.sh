@@ -87,7 +87,10 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.9.4/install/kubernetes/quick-install.yaml
 
-kubectl taint nodes --all node-role.kubernetes.io/master-
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
 kubectl get pods -A
 kubectl get nodes -o wide
 
