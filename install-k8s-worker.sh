@@ -66,9 +66,6 @@ systemctl enable --now kubelet
 
 export PATH=$PATH:$DOWNLOAD_DIR
 
-mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.9.4/install/kubernetes/quick-install.yaml
 
 kubectl get pods -A
