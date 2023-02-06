@@ -2,7 +2,7 @@
 
 CNI_PLUGINS_VERSION="v1.1.1"
 ARCH="amd64"
-DEST="/opt/cni/bin"
+DEST="/opt/bin"
 sudo mkdir -p "$DEST"
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 
