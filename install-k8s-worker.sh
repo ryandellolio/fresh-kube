@@ -68,8 +68,6 @@ export PATH=$PATH:$DOWNLOAD_DIR
 
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.9.4/install/kubernetes/quick-install.yaml
 
-kubectl get pods -A
-kubectl get nodes -o wide
-
-kubectl apply -f https://k8s.io/examples/application/deployment.yaml
-kubectl expose deployment.apps/nginx-deployment
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
