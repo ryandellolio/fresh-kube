@@ -43,7 +43,6 @@ chmod +x {kubeadm,kubelet,kubectl}
 mv {kubeadm,kubelet,kubectl} $DOWNLOAD_DIR/
 
 systemctl enable --now kubelet
-#systemctl status kubelet
 
 cat <<EOF | tee kubeadm-config.yaml
 apiVersion: kubeadm.k8s.io/v1beta2
@@ -57,42 +56,12 @@ kind: ClusterConfiguration
 controllerManager:
   extraArgs:
     flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
-EOF
-
-# For explicit cgroupdriver selection
-# ---
-# kind: KubeletConfiguration
-# apiVersion: kubelet.config.k8s.io/v1beta1
-# cgroupDriver: systemd
-
-# For explicit pod network (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2):
-# apiVersion: kubeadm.k8s.io/v1beta2
-# kind: ClusterConfiguration
-# networking:
-#  podSubnet: "10.244.0.0/16"
-
-# For containerd
-# apiVersion: kubeadm.k8s.io/v1beta2
-# kind: InitConfiguration
-# nodeRegistration:
-#  criSocket: "unix:///run/containerd/containerd.sock
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+ kind: ClusterConfiguration
+ networking:
+  podSubnet: "10.244.0.0/16"
 
 export PATH=$PATH:$DOWNLOAD_DIR
 
-kubeadm config images pull
-kubeadm init --config kubeadm-config.yaml
-
-mkdir -p $HOME/.kube
-cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.9.4/install/kubernetes/quick-install.yaml
-
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-kubectl get pods -A
-kubectl get nodes -o wide
-
-kubectl apply -f https://k8s.io/examples/application/deployment.yaml
-kubectl expose deployment.apps/nginx-deployment
+EOF
