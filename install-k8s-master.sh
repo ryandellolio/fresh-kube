@@ -43,23 +43,3 @@ chmod +x {kubeadm,kubelet,kubectl}
 mv {kubeadm,kubelet,kubectl} $DOWNLOAD_DIR/
 
 systemctl enable --now kubelet
-
-cat <<EOF | tee kubeadm-config.yaml
-apiVersion: kubeadm.k8s.io/v1beta2
-kind: InitConfiguration
-nodeRegistration:
-  kubeletExtraArgs:
-    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
----
-apiVersion: kubeadm.k8s.io/v1beta2
-kind: ClusterConfiguration
-controllerManager:
-  extraArgs:
-    flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
----
-apiVersion: kubeadm.k8s.io/v1beta2
- kind: ClusterConfiguration
- networking:
-  podSubnet: "10.244.0.0/16"
-
-EOF
